@@ -1,22 +1,101 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, useStaticQuery, graphql } from "gatsby"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Layout from "../components/Layout"
+import {Wrapper, Image, BottomEdgeDown, BottomEdgeUp, MoviePreview} from "../pageStyles/pageStyles"
+import SEO from "../components/Seo"
+import {COLORS} from "../constants"
 
-const IndexPage = () => (
-  <Layout>
+const IndexPage = () => {
+  const {
+    wpcontent: {
+      page: {
+        homeMeta: {
+          homepageheadertitle,
+          homepageheaderdescription,
+          homepageheaderpicture,
+          homepagefeaturedmovies
+        },
+      },
+    },
+  } = useStaticQuery(graphql`
+    query {
+      wpcontent {
+        page(id: "home", idType: URI) {
+          homeMeta {
+            homepageheadertitle
+            homepageheaderdescription
+            homepageheaderpicture {
+              altText
+              sourceUrl
+              imageFile {
+                childImageSharp {
+                  fluid(quality: 50) {
+                    ...GatsbyImageSharpFluid_withWebp
+                  }
+                }
+              }
+            }
+            homepagefeaturedmovies {
+              ... on WPGraphql_Movie {
+                slug
+                Movie {
+                  title
+                  duration
+                  producer
+                  genre
+                  picture{
+                    altText
+                    sourceUrl
+                    imageFile {
+                      childImageSharp {
+                        fluid(quality: 50) {
+                          ...GatsbyImageSharpFluid_withWebp
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `);
+  return(
+    <Layout>
     <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
-
+    <Wrapper>
+      <div className="banner">
+        <Image fluid={homepageheaderpicture.imageFile.childImageSharp.fluid} alt={homepageheaderpicture.altText}/>
+        <div className="inner-div">
+         <p className="header-title">{homepageheadertitle}</p>
+         <p className="header-description">{homepageheaderdescription}</p>
+        </div>
+        <BottomEdgeDown color={COLORS.BLACK}/>
+      </div>
+      <div className="description">
+       <BottomEdgeUp color={COLORS.PRIMARY}/>
+      </div>
+      <div className="movies">
+        <h2>Featured movies</h2>
+        <div className="movie-items">
+          {homepagefeaturedmovies.map(({Movie, slug}) => (
+            <MoviePreview to={`/${slug}`} key={slug}>
+              <Image fluid={Movie.picture.imageFile.childImageSharp.fluid} altText={Movie.picture.altText}/>
+              <div className="movie-info">
+                <p>
+                  {Movie.title}
+                </p>
+                <p>{Movie.genre}</p>
+              </div>
+            </MoviePreview>
+          ))}
+        </div>
+      </div>
+    </Wrapper>
+   </Layout>
+ )
+}
 export default IndexPage
