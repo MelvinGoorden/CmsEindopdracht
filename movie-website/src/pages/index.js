@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 
 import Layout from "../components/Layout"
 import {Wrapper, Image, BottomEdgeDown, BottomEdgeUp, MoviePreview} from "../pageStyles/pageStyles"
@@ -41,9 +41,7 @@ const IndexPage = () => {
                 slug
                 Movie {
                   title
-                  duration
                   producer
-                  genre
                   picture{
                     altText
                     sourceUrl
@@ -88,7 +86,7 @@ const IndexPage = () => {
                 <p>
                   {Movie.title}
                 </p>
-                <p>{Movie.genre}</p>
+                <p>{Movie.producer}</p>
               </div>
             </MoviePreview>
           ))}

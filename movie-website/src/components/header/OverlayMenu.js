@@ -13,7 +13,7 @@ const OverlayMenu = ({ handleOverlayMenu, menuOpen }) => {
     wpcontent: { menuItems },
   } = useStaticQuery(graphql`
     query {
-      logo: file(relativePath: { eq: "logo.png" }) {
+      logo: file(relativePath: { eq: "movieLogo.png" }) {
         childImageSharp {
           fixed(quality: 100, width: 200) {
             ...GatsbyImageSharpFixed_withWebp
@@ -40,7 +40,7 @@ const OverlayMenu = ({ handleOverlayMenu, menuOpen }) => {
           <CloseButton onClick={handleOverlayMenu}>X</CloseButton>
           <Link to="/" style={{ marginBottom: "1.5rem" }}>
             <Image
-              alt="logo movie agency obi"
+              alt="logo World Movies"
               fixed={logo.childImageSharp.fixed}
             />
           </Link>

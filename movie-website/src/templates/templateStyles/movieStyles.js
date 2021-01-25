@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import Img from "gatsby-image"
-import { Link } from "gatsby"
 import { COLORS, FONT_FAMILIES, MEDIA_QUERIES } from "../../constants"
 
 export const Wrapper = styled.div`
@@ -101,7 +100,7 @@ export const Wrapper = styled.div`
 
       .description {
         font-size: 1.2rem;
-        color: ${COLORS.TERTIARY};
+        color: ${COLORS.BLACK};
 
         @media (max-width: ${MEDIA_QUERIES.MEDIUM}) {
           font-size: 1rem;
@@ -111,29 +110,6 @@ export const Wrapper = styled.div`
       .info {
         font-family: 2rem;
         text-transform: uppercase;
-      }
-    }
-  }
-
-  .movie-pictures {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin-top: 2rem;
-
-    @media (max-width: ${MEDIA_QUERIES.MEDIUM}) {
-      flex-direction: column;
-    }
-
-    .movie-picture {
-      width: 28.5vw;
-      height: 57vw;
-      margin: 0 1vw;
-
-      @media (max-width: ${MEDIA_QUERIES.MEDIUM}) {
-        width: 90vw;
-        height: 160vw;
-        margin: 2vw auto;
       }
     }
   }

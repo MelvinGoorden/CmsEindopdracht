@@ -1,5 +1,5 @@
 import React from "react"
-import { useStaticQuery, graphql, Link } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 
 import Layout from "../components/Layout"
 import SEO from "../components/Seo"
@@ -45,8 +45,6 @@ const MoviesPage = () => {
             Movie {
               title
               producer
-              duration
-              genre
               picture {
                 altText
                 sourceUrl
@@ -92,7 +90,7 @@ const MoviesPage = () => {
                     <p>
                       {Movie.title}
                     </p>
-                    <p>{Movie.genre}</p>
+                    <p>{Movie.producer}</p>
                   </div>
                </MoviePreview>
             ))}

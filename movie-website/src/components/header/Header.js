@@ -27,7 +27,6 @@ const Header = ({ siteTitle }) => {
   }
 }
 `)
-console.log(menuItems)
   return <HeaderWrapper>
     <Link to="/">
     <Image logo alt="logo World Movies" fixed={logo.childImageSharp.fixed}></Image>

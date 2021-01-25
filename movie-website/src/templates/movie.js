@@ -8,7 +8,8 @@ const MovieTemplate = ({
   data: {
     wpcontent: {
       movie: {
-        Movie
+        Movie,
+        roles: { edges: roles }
       },
     },
   },
@@ -23,14 +24,24 @@ const MovieTemplate = ({
             <Image
               fluid={Movie.picture.imageFile.childImageSharp.fluid}
             />
+            <div className="roles">
+              {roles.map(({ node: role }) => (
+                <div key={role.name} className="role">
+                  {role.name}
+                </div>
+              ))}
+            </div>
           </div>
           <div className="movie-info">
               <h3>
-                <span>{Movie.title} -</span> <span>{Movie.genre}</span>
+                <span>{Movie.title}</span>
               </h3>
-            <p className="description">{Movie.description}</p>
+            <p className="description"><strong>duration:</strong> {Movie.description}</p>
             <p className="info">
               <strong>duration:</strong> {Movie.duration}
+            </p>
+            <p className="info">
+              <strong>producer:</strong> {Movie.producer}
             </p>
           </div>
         </div>
@@ -45,11 +56,18 @@ export const pageQuery = graphql`
   query($id: ID!) {
     wpcontent {
       movie(id: $id, idType: ID) {
+        roles {
+          edges {
+            node {
+              name
+            }
+          }
+        }
         Movie {
           title
           producer
           duration
-          genre
+          description
           picture {
             sourceUrl
             altText
